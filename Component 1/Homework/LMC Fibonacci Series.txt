@@ -1,0 +1,23 @@
+	INP
+	BRP limit
+loop	LDA current
+	STA temp
+	ADD previous
+	OUT
+	STA current
+	LDA temp
+	STA previous
+	LDA counter
+	SUB one
+	STA counter
+	BRP loop
+	HLT
+limit	INP
+	SUB one
+	STA counter
+	BRA loop
+current	DAT 1
+previous	DAT
+temp	DAT
+counter	DAT
+one	DAT 1

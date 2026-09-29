@@ -1,0 +1,31 @@
+	INP
+	STA input
+	LDA base
+	
+adding	LDA answer
+	ADD base
+	STA answer
+	LDA multiplier
+	SUB one
+	STA multiplier
+	BRZ next
+	BRP adding
+
+next	LDA counter
+	ADD one
+	STA multiplier
+	STA counter
+	SUB input
+	BRZ answer
+	BRA adding
+
+answer	LDA answer
+	OUT
+	HLT
+
+input	DAT
+counter	DAT 1
+base	DAT 1
+multiplier	DAT 1
+answer	DAT
+one	DAT 1
