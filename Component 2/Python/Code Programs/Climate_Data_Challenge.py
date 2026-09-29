@@ -26,15 +26,15 @@ def comparison(first, second, third):
             print(f"The third temperature reading is the largest, at {third}*C.")
         elif first == second:
             print(
-                f"Both the first and second temperature readings are the largest, at {first}*C and {second}*C respectively."
+                f"Both the first and second temperature readings are the largest, at {first}*C."
             )
         elif first == third:
             print(
-                f"Both the first and third temperature readings are the largest, at {first}*C and {third}*C respectively."
+                f"Both the first and third temperature readings are the largest, at {first}*C."
             )
         elif second == third:
             print(
-                f"Both the second and third temperature readings are the largest, at {second}*C and {third}*C respectively."
+                f"Both the second and third temperature readings are the largest, at {second}*C."
             )
     except Exception as e:
         print("Error occurred:", e)
