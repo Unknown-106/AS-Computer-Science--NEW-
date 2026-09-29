@@ -1,6 +1,6 @@
-# HeadsOrTails
+# [program name]
 # Azhi Amin
-# 28/09/2026
+# 29/09/2026
 # OCR AS Computer Science
 
 
@@ -12,7 +12,7 @@ def one():
         print("Error occurred:", e)
 
 
-# User guesses "Heads" or "Tails".
+# ...
 def two():
     try:
         pass
