@@ -69,7 +69,7 @@ print(adding(num1,num2,num3))
 def inputValue():
     num1 = float(input("Enter number 1: "))
     num2 = float(input("Enter number 2: "))
-    return num1,num2
+    return [num1,num2]
 
 #...
 def exponent(num1,num2):
@@ -106,9 +106,14 @@ def outputValue(answer):
 #...
 def calculator():
     answer = 1.0
+    choice = ""
     print("Calculator")
-    inputValue()
-    choice = input("Pick calculator function: ")
+    values = inputValue()
+    num1 = values[0]
+    num2 = values[1]
+    print(num1)
+    print(num2)
+    choice = str(input("Pick calculator function: "))
     if choice == "Exponent" or "exponent":
         answer = exponent(num1,num2)
     elif choice == "Remainder" or "remainder" or "MOD" or "mod" or "Modulus" or "modulus":
@@ -123,6 +128,8 @@ def calculator():
         answer = subtraction(num1,num2)
     elif choice == "Addition" or "addition":
         answer = addition(num1,num2)
+    else:
+        print("Error, a real calculation function was not picked.")
     outputValue(answer)
 
 #calculator starts here
