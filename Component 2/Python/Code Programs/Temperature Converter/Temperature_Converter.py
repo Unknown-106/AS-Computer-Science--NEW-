@@ -28,7 +28,7 @@ def main_menu():
 
             :
         """))
-        while option != "Y" and "N":
+        while option != "Y" and option != "N":
             option = input("Please type 'Y' or 'N':")
         try:
             start_temp = float(
