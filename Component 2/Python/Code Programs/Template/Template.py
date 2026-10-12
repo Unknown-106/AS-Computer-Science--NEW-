@@ -4,6 +4,16 @@
 # OCR AS Computer Science
 
 
+# Standard Libraries
+pass
+
+# Third Party Libraries
+pass
+
+# Local Modules
+pass
+
+
 # ...
 def one():
     try:
