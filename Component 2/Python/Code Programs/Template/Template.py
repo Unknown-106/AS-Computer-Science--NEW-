@@ -1,4 +1,4 @@
-# [program name]
+# [Program Name] 
 # Azhi Amin
 # 29/09/2026
 # OCR AS Computer Science
@@ -39,6 +39,14 @@ def three():
 
 
 # ...
+def four():
+    try:
+        pass
+    except Exception as e:
+        print("Error occurred:", e)
+
+
+# Main Sequence
 def main():
     try:
         pass

@@ -3,67 +3,73 @@
 # 12/10/2026
 # OCR AS Computer Science
 
+# Credit to Eliot Bennett for helping me debug makeList()
+# Eliot's comments are marked with 'Eliot:', my replies to his comments are within {}
 
-# Note: Tests are commented, starting from line 84
+# Note: Tests are commented, starting from line __.
 
 
-# Makes a list of heatwave runs.
+# Makes a list of valid heatwave runs.
 def makeList(temperatures, threshold, min_days):
     try:
         runs = []
+        start_day = 0 # Eliot: are there enough comments {no, MORE COMMENTS}
+        run_length = 0
         for i in range(0, len(temperatures)):
-            start_day = 0
-            run_length = 0
-            if temperatures[i] >= threshold:
-                start_day = i + 1
-                # print("Set start")
-                while temperatures[i] >= threshold:
+            if temperatures[i] >= threshold and i > start_day + run_length - 1: # Eliot: check if the day is hot enough; and if it hasn't been counted yet (by a previous run), -1 because startday is 1 indexed
+                start_day = i + 1 # since days start at 1 (why?? {because we are outputting the actual days?})
+                j = i # Eliot: i mean really should be i + 1 to be more efficient but oh well ive already uploaded it [to GitHub], barely any more ops anyway
+                run_length = 0
+                while temperatures[j] >= threshold:
                     run_length += 1
-                    if i == len(temperatures) - 1:
+                    if j == len(temperatures) - 1:
                         break
-                    i += 1
-                if run_length + 1 == min_days:
+                    j += 1
+                if run_length >= min_days: # Eliot: you said if the run_length is == to the min days you silly fool, oh and you also said run_length + 1 in this if but then not +1 in the line after
                     runs.append([start_day, run_length])
-                    # print("Added run")
         return runs
     except Exception as e:
         print("Error occurred:", e)
 
 
-# Bubble Sort for the list of runs, ranked in ascending order by run_length.
+# Bubble sorts the list of runs in ascending order by run_length.
 def bubble_sort(runs):
     try:
-        Swapped = True
-        while Swapped == True:
-            Swapped = False
+        swapped = True
+        while swapped == True:
+            swapped = False
             for i in range(0, len(runs) - 1):
                 if runs[i][1] > runs[i + 1][1]:
                     runs[i], runs[i + 1] = runs[i + 1], runs[i]
-                    Swapped = True
+                    swapped = True
         return runs
     except Exception as e:
         print("Error occurred:", e)
 
 
-# Checks for equal longest runs and updates start_day to be the earliest possible longest run.
-def checkEqual(runs):
+# Checks for the longest runs with equal run_length.
+def checkEquals(runs):
     try:
-        equal = []
-        Tied = False
-        for i in range(len(runs) - 1, 0, -1):
-            if runs[i][0] == runs[len(runs) - 1][0]:
-                equal.append(runs[i])
-                Tied = True
+        equals = []
+        for i in range(len(runs) - 1, -1, -1):
+            if runs[i][1] == runs[len(runs) - 1][1]:
+                equals.append(runs[i])
             else:
                 break
-        Swapped = True
-        while Swapped == True and Tied == True:
-            Swapped = False
-            for i in range(0, len(equal) - 1):
-                if runs[i][1] > runs[i + 1][1]:
-                    runs[i], runs[i + 1] = runs[i + 1], runs[i]
-                    Swapped = True
-        return equal[0]
+        return equals
+    except Exception as e:
+        print("Error occurred:", e)
+        
+# Linear search for the earliest start_day.
+def searchEarliest(equals):
+    try:
+        index = 0
+        earliest = equals[index][0]
+        for i in range(0, len(equals)):
+            if equals[i][0] <= earliest:
+                earliest = equals[i][0]
+                index = i
+        return equals[index]
     except Exception as e:
         print("Error occurred:", e)
 
@@ -73,22 +79,21 @@ def longest_heatwave(temperatures, threshold, min_days):
     try:
         runs = makeList(temperatures, threshold, min_days)
         runs_sorted = bubble_sort(runs)
-        result = checkEqual(runs_sorted)
+        equals_list = checkEquals(runs_sorted)
+        result = searchEarliest(equals_list)
         return result
     except Exception as e:
         print("Error occurred:", e)
 
 
-# print(makeList([16, 20, 32, 37, 39, 23, 35, 33, 36, 40, 18], 30, 2))
-
 # Tests
-"""
-print("Testing Begins:")
+# """
+print("Testing Begins:\n")
 
 print("Test 1: Normal Test. 2 runs with 1 longest run. No last day ending.")
 assert longest_heatwave([16, 20, 32, 37, 39, 23, 35, 33, 36, 40, 18], 30, 2) == [
     7,
-    3,
+    4,
 ]
 print("PASS\n")
 
@@ -148,8 +153,8 @@ print(
 )
 assert longest_heatwave(
     [16, 20, 32, 37, 39, 23, 27, 31, 33, 28, 35, 33, 38, 26, 32, 34], 30, 2
-) == [2, 3]
+) == [3, 3]
 print("PASS\n")
 
 
-"""
+# """
